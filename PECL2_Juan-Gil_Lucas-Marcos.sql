@@ -1,14 +1,151 @@
-SET datestyle TO 'MDY';
+-- Ejecutar primero
+CREATE database PECL2;
 
-create database PECL2;
+-- Seleccionar database PECL2 y ejecutar el resto
+SET datestyle TO 'MDY';
 
 CREATE SCHEMA IF NOT EXISTS temporal;
 
+SET search_path TO temporal;
+
+CREATE TABLE IF NOT EXISTS vehículos(
+    VEHICLE_ID TEXT,
+    VEHICLE_YEAR TEXT,
+    VEHICLE_TYPE TEXT,
+    VEHICLE_MODEL TEXT,
+    VEHICLE_MAKE TEXT
+);
+
+CREATE TABLE IF NOT EXISTS personas (
+    person_id TEXT,
+    person_sex TEXT,
+    person_lastname TEXT,
+    person_firstname TEXT,
+    person_phone TEXT,
+    person_address TEXT,
+    person_city TEXT,
+    person_state TEXT,
+    person_zip TEXT,
+    person_ssn TEXT,
+    person_dob TEXT
+);
+
+CREATE TABLE IF NOT EXISTS colision_persona (
+    unique_id TEXT,
+    collision_id TEXT,
+    crash_date TEXT,
+    crash_time TEXT,
+    person_id TEXT,
+    person_type TEXT,
+    person_injury TEXT,
+    vehicle_id TEXT,
+    person_age TEXT,
+    ejection TEXT,
+    emotional_status TEXT,
+    bodily_injury TEXT,
+    position_in_vehicle TEXT,
+    safety_equipment TEXT,
+    ped_location TEXT,
+    ped_action TEXT,
+    complaint TEXT,
+    ped_role TEXT,
+    contributing_factor_1 TEXT,
+    contributing_factor_2 TEXT,
+    person_sex TEXT
+);
+
+CREATE TABLE IF NOT EXISTS colision_vehiculo (
+    unique_id TEXT,
+    collision_id TEXT,
+    crash_date TEXT,
+    crash_time TEXT,
+    vehicle_id TEXT,
+    state_registration TEXT,
+    vehicle_type TEXT,
+    vehicle_make TEXT,
+    vehicle_model TEXT,
+    vehicle_year TEXT,
+    travel_direction TEXT,
+    vehicle_occupants TEXT,
+    driver_sex TEXT,
+    driver_license_status TEXT,
+    driver_license_jurisdiction TEXT,
+    pre_crash TEXT,
+    point_of_impact TEXT,
+    vehicle_damage TEXT,
+    vehicle_damage_1 TEXT,
+    vehicle_damage_2 TEXT,
+    vehicle_damage_3 TEXT,
+    public_property_damage TEXT,
+    public_property_damage_type TEXT,
+    contributing_factor_1 TEXT,
+    contributing_factor_2 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS accidente (
+    crash_date TEXT,
+    crash_time TEXT,
+    borough TEXT,
+    zip_code TEXT,
+    latitude TEXT,
+    longitude TEXT,
+    location TEXT,
+    on_street_name TEXT,
+    cross_street_name TEXT,
+    off_street_name TEXT,
+    number_of_persons_injured TEXT,
+    number_of_persons_killed TEXT,
+    number_of_pedestrians_injured TEXT,
+    number_of_pedestrians_killed TEXT,
+    number_of_cyclists_injured TEXT,
+    number_of_cyclists_killed TEXT,
+    number_of_motorists_injured TEXT,
+    number_of_motorists_killed TEXT,
+    contributing_factor_vehicle_1 TEXT,
+    contributing_factor_vehicle_2 TEXT,
+    contributing_factor_vehicle_3 TEXT,
+    contributing_factor_vehicle_4 TEXT,
+    contributing_factor_vehicle_5 TEXT,
+    collision_id TEXT,
+    vehicle_type_code_1 TEXT,
+    vehicle_type_code_2 TEXT,
+    vehicle_type_code_3 TEXT,
+    vehicle_type_code_4 TEXT,
+    vehicle_type_code_5 TEXT
+);
+
+
+
+COPY colision_persona
+FROM 'C:\datos\Collisions_Person_20241020.csv'
+WITH CSV HEADER NULL '' DELIMITER ',';
+
+
+COPY personas
+FROM 'C:\datos\personas2.csv'
+WITH CSV HEADER NULL '' DELIMITER ';';
+
+
+COPY vehículos
+FROM 'C:\datos\Vehicles.csv'
+WITH CSV HEADER NULL '' DELIMITER ';';
+
+
+COPY colision_vehiculo
+FROM 'C:\datos\Collisions_Vehicles_20241020.csv'
+WITH CSV HEADER NULL '' DELIMITER ',';
+
+
+COPY accidente
+FROM 'C:\datos\Collisions_Crashes_20241020.csv'
+WITH CSV HEADER NULL '' DELIMITER ',';
+
 CREATE SCHEMA IF NOT EXISTS final;
+
+SET search_path TO final;
 
 CREATE TABLE IF NOT EXISTS vehículos (
     VEHICLE_ID VARCHAR(50),
-    STATE_REGISTRATION VARCHAR(20),
     VEHICLE_TYPE VARCHAR(50),
     VEHICLE_MAKE VARCHAR(50),
     VEHICLE_MODEL VARCHAR(50),
