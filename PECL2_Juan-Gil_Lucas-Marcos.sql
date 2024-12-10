@@ -1,4 +1,4 @@
--- Path a la carpeta de datos: 'C:\datos', reemplazar con la carpeta que se desee
+-- Path a la carpeta de datos: 'C:\datos', reemplazar con la carpeta que se desee (Ctrl+R)
 
 -- Ejecutar primero y seleccionar database PECL2
 CREATE database PECL2;
