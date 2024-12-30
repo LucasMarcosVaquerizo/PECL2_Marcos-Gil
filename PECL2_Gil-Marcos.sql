@@ -169,6 +169,7 @@ CREATE TABLE IF NOT EXISTS personas (
 );
 
 CREATE TABLE IF NOT EXISTS colision_persona (
+    UNIQUE_ID VARCHAR(50),
     COLLISION_ID VARCHAR(50),
     PERSON_ID VARCHAR(50),
     PERSON_TYPE VARCHAR(50),
@@ -190,6 +191,8 @@ CREATE TABLE IF NOT EXISTS colision_persona (
 );
 
 CREATE TABLE IF NOT EXISTS colision_vehiculo (
+    UNIQUE_ID VARCHAR(50),
+    COLLISION_ID VARCHAR(50),
     VEHICLE_ID VARCHAR(50),
     STATE_REGISTRATION VARCHAR(2),
     VEHICLE_TYPE VARCHAR(50),
@@ -230,6 +233,7 @@ CREATE TABLE IF NOT EXISTS accidente (
     NUMBER_OF_CYCLISTS_KILLED INT,
     NUMBER_OF_MOTORISTS_INJURED INT,
     NUMBER_OF_MOTORISTS_KILLED INT,
+    COLLISION_ID VARCHAR(50),
     CONTRIBUTING_FACTOR_VEHICLE_1 VARCHAR(100),
     CONTRIBUTING_FACTOR_VEHICLE_2 VARCHAR(100),
     CONTRIBUTING_FACTOR_VEHICLE_3 VARCHAR(100),
@@ -280,6 +284,7 @@ SELECT
 FROM temporal.personas;
 
 INSERT INTO final.colision_persona (
+    UNIQUE_ID,
     COLLISION_ID,
     PERSON_ID,
     PERSON_TYPE,
@@ -300,6 +305,7 @@ INSERT INTO final.colision_persona (
     PERSON_SEX
 )
 SELECT
+    CAST(unique_id AS VARCHAR(50)),
     CAST(collision_id AS VARCHAR(50)),
     CAST(person_id AS VARCHAR(50)),
     CAST(person_type AS VARCHAR(50)),
@@ -321,6 +327,8 @@ SELECT
 FROM temporal.colision_persona;
 
 INSERT INTO final.colision_vehiculo (
+    UNIQUE_ID,
+    COLLISION_ID,
     VEHICLE_ID,
     STATE_REGISTRATION,
     VEHICLE_TYPE,
@@ -342,6 +350,8 @@ INSERT INTO final.colision_vehiculo (
     CONTRIBUTING_FACTOR_2
 )
 SELECT
+    CAST(unique_id AS VARCHAR(50)),
+    CAST(collision_id AS VARCHAR(50)),
     CAST(vehicle_id AS VARCHAR(50)),
     CAST(state_registration AS VARCHAR(2)),
     CAST(vehicle_type AS VARCHAR(50)),
@@ -382,6 +392,7 @@ INSERT INTO final.accidente (
     NUMBER_OF_CYCLISTS_KILLED,
     NUMBER_OF_MOTORISTS_INJURED,
     NUMBER_OF_MOTORISTS_KILLED,
+    COLLISION_ID,
     CONTRIBUTING_FACTOR_VEHICLE_1,
     CONTRIBUTING_FACTOR_VEHICLE_2,
     CONTRIBUTING_FACTOR_VEHICLE_3,
@@ -407,6 +418,7 @@ SELECT
     CAST(number_of_cyclists_killed AS INT),
     CAST(number_of_motorists_injured AS INT),
     CAST(number_of_motorists_killed AS INT),
+    CAST(collision_id AS VARCHAR(50)),
     CAST(contributing_factor_vehicle_1 AS VARCHAR(100)),
     CAST(contributing_factor_vehicle_2 AS VARCHAR(100)),
     CAST(contributing_factor_vehicle_3 AS VARCHAR(100)),
