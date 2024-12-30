@@ -62,6 +62,16 @@ UPDATE final.personas
 SET person_sex = 'U'
 WHERE person_sex NULL or person_sex LIKE '';
 
+-- Ejercicio 5-profe:
+
+UPDATE final.personas
+SET person_sex = (SELECT DISTINCT person_sex
+                  FROM final.colision_persona
+                  WHERE personas.person_id = final.colision_persona.person_id)
+WHERE EXISTS(SELECT 1
+             FROM final.colision_persona
+             WHERE personas.person_id = colision_persona.person_id);
+
 -- Ejercicio 6:
 
 ALTER TABLE final.personas
